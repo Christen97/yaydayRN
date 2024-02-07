@@ -22,8 +22,6 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import tailwind from "twrnc";
-import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 
 const SignInScreen = () => {
   const { height } = useWindowDimensions();

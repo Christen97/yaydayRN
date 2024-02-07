@@ -18,7 +18,8 @@ import tailwind from "twrnc";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
-
+import LocationPic from "../../../assets/images/address-icon.png"
+import ArrowPic from "../../../assets/images/arrow-thin-chevron-right-icon.png"
 const StyledView = styled(View);
 
 const Tab = createBottomTabNavigator();
@@ -100,19 +101,28 @@ function HomeScreen() {
   const onEventClicked = () => {
     navigation.navigate("BookScreen");
   };
+
+  const onLocationClicked = ()=>{
+    navigation.navigate("NearYouList")
+  }
+
   return (
+    
     <StyledView className="flex flex-col h-screen pt-14">
-      <StyledView className="mx-5">
-        <Text className="text-3xl font-semibold text-blue-900">
-          Email: {auth.currentUser?.email}
+      <StyledView className="mx-2">
+        <Text className="text-2xl font-semibold text-black-900">
+          Hej {auth.currentUser?.email}
         </Text>
       </StyledView>
-      <StyledView className="flex flex-col pt-10">
-        <StyledView className="mx-5">
-          <Text className="text-2xl text-gray-400">Trender</Text>
+      <StyledView className="flex border-2 border-double border-orange-300"></StyledView>
+      <TouchableOpacity className="flex flex-row mx-8 mt-10 bg-slate-100   rounded-lg py-4 pr-4 pl-2" onPress={onLocationClicked}><Image source={LocationPic} className="h-8 w-8"/><Text className="font-poppins text-right text-xl text-orange-300 font-italic font-semibold border-1 border-black-500 pl-4">Find oplevelser tæt på dig</Text><Image source={ArrowPic} className="h-2 w-6 py-4 px-2"/></TouchableOpacity>
+      <StyledView className="flex flex-col pt-10 ">
+        <StyledView className="flex flex-row mx-1 pl-8 border-1 border-black-500 space-x-16"> 
+          <Text className="mt-10 text-3xl text-orange-300 bg-blue-100 shadow-blue-300 rounded-lg border-width px-1 font-semibold">Trender</Text>
+         
         </StyledView>
         <ScrollView
-          className="flex flex-row pt-1"
+          className="flex flex-row pt-10"
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
@@ -130,9 +140,12 @@ function HomeScreen() {
             }}
             style={tailwind`w-64 h-48 rounded-3xl`}
           />
+          <Image>
+            
+          </Image>
         </ScrollView>
         <StyledView className="m-5">
-          <Text className="text-2xl text-gray-400">Vi anbefaler</Text>
+          <Text className="text-2xl text-orange-300 font-semibold px-1 bg-blue-100 shadow-blue-300 rounded-lg border-width px-1">Vi anbefaler</Text>
         </StyledView>
         <ScrollView
           className="flex flex-col mx-5"
@@ -158,17 +171,17 @@ function HomeScreen() {
               </StyledView>
               <StyledView className="flex flex-row">
                 <Text className="text-xs text-gray-400 my-6">
-                  PartyBowlerne Odense
+                  PartyBowlerne Odense 
                 </Text>
                 <Text className="text-xs text-gray-400 my-6 text-right">
                   50 kr.
                 </Text>
               </StyledView>
             </StyledView>
-          </TouchableOpacity>
+          </TouchableOpacity >
           <StyledView className="h-40 w-full bg-white rounded-3xl mb-4">
             <Image
-              className="m-4"
+              className="m-3 "
               source={{
                 uri: "https://source.unsplash.com/random",
               }}
@@ -182,6 +195,7 @@ function HomeScreen() {
       </StyledView>
     </StyledView>
   );
+  
 }
 
 function SettingsScreen() {

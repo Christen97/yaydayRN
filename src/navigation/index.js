@@ -12,6 +12,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ExploreScreen from '../screens/ExploreScreen';
 import FilterScreen from '../screens/FilterScreen';
 import BookScreen from '../screens/BookScreen';
+import NearYouList from '../screens/NearYouList';
 
 const navTheme = DefaultTheme;
 navTheme.colors.background = '#fae3f7';
@@ -30,6 +31,7 @@ const Navigation = () => {
             <Stack.Screen name="ExploreScreen" component={ExploreScreen} />
             <Stack.Screen name="FilterScreen" component={FilterScreen} />
             <Stack.Screen name="BookScreen" component={BookScreen} />
+            <Stack.Screen name="NearYouList" component={NearYouList}/>
         </Stack.Navigator>
     </NavigationContainer>
   )
