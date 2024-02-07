@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 import { StyleSheet } from "react-native";
 import { CommonActions } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -24,6 +25,22 @@ const StyledView = styled(View);
 const Tab = createBottomTabNavigator();
 
 export default function MyComponent() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      // Update loading state to false once authentication state is determined
+      setLoading(false);
+    });
+
+    // Cleanup the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    // Render loading indicator or null
+    return null;
+  }
   return (
     <Tab.Navigator
       screenOptions={{
@@ -63,8 +80,8 @@ export default function MyComponent() {
               options.tabBarLabel !== undefined
                 ? options.tabBarLabel
                 : options.title !== undefined
-                ? options.title
-                : route.title;
+                  ? options.title
+                  : route.title;
 
             return label;
           }}
@@ -104,7 +121,7 @@ function HomeScreen() {
     <StyledView className="flex flex-col h-screen pt-14">
       <StyledView className="mx-5">
         <Text className="text-3xl font-semibold text-blue-900">
-          Email: {auth.currentUser?.email}
+          {auth.currentUser?.displayName}
         </Text>
       </StyledView>
       <StyledView className="flex flex-col pt-10">
@@ -197,7 +214,7 @@ function SettingsScreen() {
     <StyledView className="flex flex-col h-screen pt-14">
       <Text variant="headlineMedium">Settings!</Text>
       <TouchableOpacity className="h-12 w-full rounded-full bg-red-400"
-      onPress={handleSignOut}>
+        onPress={handleSignOut}>
         <Text className="m-3 text-white text-center">Logout</Text>
       </TouchableOpacity>
     </StyledView>

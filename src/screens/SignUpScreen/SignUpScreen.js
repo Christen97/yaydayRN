@@ -18,6 +18,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
   onAuthStateChanged,
 } from "firebase/auth";
 
@@ -46,6 +47,7 @@ const SignUpScreen = () => {
     navigation.navigate("ConfirmEmailScreen");
   };
 
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -57,13 +59,19 @@ const SignUpScreen = () => {
         email,
         password
       );
+      
+      const user = userCredential.user;
+      await updateProfile(user, {
+        displayName: username,
+      });
       console.log(userCredential.user);
+      console.log(username)
     } catch (error) {
       console.log(error);
     }
   };
 
-  
+
 
   return (
     <ScrollView showsVerticalIndicator={false}>
@@ -73,6 +81,7 @@ const SignUpScreen = () => {
         <TextInput
           name="username"
           placeholder="Username"
+          onChangeText={(text) => setUsername(text)}
           className="h-12 w-full bg-white rounded-3xl my-3 p-3"
           rules={{
             required: "Username is required",

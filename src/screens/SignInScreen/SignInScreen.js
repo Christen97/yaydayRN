@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import Logo from "../../../assets/images/YaydayLogo.png";
+import Logo from "../../../assets/images/YaydayLogo.png"; 
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import SocialSignInButtons from "../../components/SocialSignInButtons";
@@ -22,9 +22,6 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import tailwind from "twrnc";
-import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-
 const SignInScreen = () => {
   const { height } = useWindowDimensions();
   const navigation = useNavigation();
